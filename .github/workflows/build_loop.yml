@@ -230,10 +230,6 @@ jobs:
       - name: Sync clock
         run: sudo sntp -sS time.windows.com
 
-      # Install project dependencies
-      - name: Update Fastlane
-        run: bundle update fastlane
-
       # Build signed Loop IPA file
       - name: Fastlane Build & Archive
         run: bundle exec fastlane build_loop
