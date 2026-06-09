@@ -214,7 +214,6 @@ jobs:
       # Patch Fastlane Match to not print tables
       - name: Patch Match Tables
         run: |
-          bundle update fastlane
           TABLE_PRINTER_PATH=$(ruby -e 'puts Gem::Specification.find_by_name("fastlane").gem_dir')/match/lib/match/table_printer.rb
           if [ -f "$TABLE_PRINTER_PATH" ]; then
             sed -i "" "/puts(Terminal::Table.new(params))/d" "$TABLE_PRINTER_PATH"
@@ -230,6 +229,10 @@ jobs:
       # Sync the GitHub runner clock with the Windows time server (workaround as suggested in https://github.com/actions/runner/issues/2996)
       - name: Sync clock
         run: sudo sntp -sS time.windows.com
+
+      # Install project dependencies
+      - name: Update Fastlane
+        run: bundle update fastlane
 
       # Build signed Loop IPA file
       - name: Fastlane Build & Archive
